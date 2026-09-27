@@ -20,13 +20,14 @@ const DEFAULT_DATA = {
     about:
       "A software engineering student, web developer and creative person who enjoys building things that feel as good as they look.",
 
-    linkedin: "",
+    linkedin:
+      "https://www.linkedin.com/in/syeda-manahyll/",
 
     github:
       "https://github.com/menooprog",
 
     email:
-      "your@email.com",
+      "syedamanahil06@gmail.com",
 
     image: ""
 
@@ -41,7 +42,6 @@ const DEFAULT_DATA = {
     "GitHub",
     "UI Design",
     "AI",
-    "Vibe Coding",
     "Game Dev"
 
   ],
@@ -177,7 +177,38 @@ function loadData() {
 
     if (saved) {
 
-      return JSON.parse(saved);
+      const parsed =
+        JSON.parse(saved);
+
+      if (parsed && Array.isArray(parsed.skills)) {
+
+        parsed.skills =
+          parsed.skills.filter(
+            skill =>
+              String(skill).trim().toLowerCase() !== "vibe coding"
+          );
+
+      }
+
+      if (parsed && parsed.profile) {
+
+        if (!parsed.profile.linkedin || parsed.profile.linkedin === "#" || parsed.profile.linkedin.trim() === "") {
+
+          parsed.profile.linkedin =
+            "https://www.linkedin.com/in/syeda-manahyll/";
+
+        }
+
+        if (!parsed.profile.email || parsed.profile.email === "your@email.com" || parsed.profile.email.trim() === "") {
+
+          parsed.profile.email =
+            "syedamanahil06@gmail.com";
+
+        }
+
+      }
+
+      return parsed;
 
     }
 
@@ -365,30 +396,81 @@ function renderProfile() {
       "linkedinLink"
     );
 
-
   linkedin.href =
     data.profile.linkedin ||
-    "#";
-
+    "https://www.linkedin.com/in/syeda-manahyll/";
 
   linkedin.style.display =
-    data.profile.linkedin
-      ? "inline-block"
-      : "none";
+    "inline-flex";
 
 
-  document.getElementById(
-    "githubLink"
-  ).href =
+  const heroLinkedin =
+    document.getElementById(
+      "heroLinkedinLink"
+    );
+
+  if (heroLinkedin) {
+
+    heroLinkedin.href =
+      data.profile.linkedin ||
+      "https://www.linkedin.com/in/syeda-manahyll/";
+
+    heroLinkedin.style.display =
+      "inline-flex";
+
+  }
+
+
+  const contactLinkedin =
+    document.getElementById(
+      "contactLinkedinLink"
+    );
+
+  if (contactLinkedin) {
+
+    contactLinkedin.href =
+      data.profile.linkedin ||
+      "https://www.linkedin.com/in/syeda-manahyll/";
+
+  }
+
+
+  const github =
+    document.getElementById(
+      "githubLink"
+    );
+
+  github.href =
     data.profile.github ||
     "#";
 
 
-  document.getElementById(
-    "emailLink"
-  ).href =
-    "mailto:" +
-    (data.profile.email || "");
+  const heroGithub =
+    document.getElementById(
+      "heroGithubLink"
+    );
+
+  if (heroGithub) {
+
+    heroGithub.href =
+      data.profile.github ||
+      "#";
+
+  }
+
+
+  const emailLinkEl =
+    document.getElementById(
+      "emailLink"
+    );
+
+  if (emailLinkEl) {
+
+    emailLinkEl.href =
+      "mailto:" +
+      (data.profile.email || "");
+
+  }
 
 
   const profile =
@@ -2023,9 +2105,159 @@ backTop.addEventListener(
 
 
 /* =====================================================
+   CONTACT FORM & GMAIL SUBMISSION
+===================================================== */
+
+const contactForm =
+  document.getElementById("contactForm");
+
+const contactSubmitBtn =
+  document.getElementById("contactSubmitBtn");
+
+const submitBtnText =
+  document.getElementById("submitBtnText");
+
+const submitBtnIcon =
+  document.getElementById("submitBtnIcon");
+
+
+
+if (contactForm) {
+
+  contactForm.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const nameInput =
+      document.getElementById("contactName");
+
+    const emailInput =
+      document.getElementById("contactEmail");
+
+    const messageInput =
+      document.getElementById("contactMessage");
+
+
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const message = messageInput.value.trim();
+
+
+    if (!name || !email || !message) {
+
+      return;
+
+    }
+
+
+    // Loading state
+    contactSubmitBtn.disabled = true;
+    submitBtnText.textContent = "Sending...";
+    submitBtnIcon.textContent = "⏳";
+
+
+    try {
+
+      const targetEmail =
+        data.profile.email || "syedamanahil06@gmail.com";
+
+      const response = await fetch(
+        `https://formsubmit.co/ajax/${targetEmail}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            message: message,
+            _subject: `Portfolio Message from ${name} (${email})`,
+            _template: "table",
+            _captcha: "false"
+          })
+        }
+      );
+
+
+      const resData = await response.json();
+
+
+      if (response.ok || resData.success === "true" || resData.success === true) {
+
+        contactForm.reset();
+
+        submitBtnText.textContent = "Sent ✦";
+        submitBtnIcon.textContent = "✓";
+
+        setTimeout(() => {
+
+          submitBtnText.textContent = "Send Message";
+          submitBtnIcon.textContent = "✦";
+          contactSubmitBtn.disabled = false;
+
+        }, 2500);
+
+      }
+
+      else {
+
+        throw new Error(resData.message || "Submission failed");
+
+      }
+
+    }
+
+    catch (error) {
+
+      console.warn("Direct API sending encountered an issue, offering mailto fallback:", error);
+
+      // Fallback: open mail client with message pre-filled
+      const targetEmail = data.profile.email || "syedamanahil06@gmail.com";
+      const subject = encodeURIComponent(`Portfolio Message from ${name}`);
+      const body = encodeURIComponent(`Hi Syeda Manahil,\n\n${message}\n\nFrom: ${name} (${email})`);
+
+      window.location.href = `mailto:${targetEmail}?subject=${subject}&body=${body}`;
+
+      contactSubmitBtn.disabled = false;
+      submitBtnText.textContent = "Send Message";
+      submitBtnIcon.textContent = "✦";
+
+    }
+
+  });
+
+}
+
+
+/* Auto focus contact form name when clicking Get in Touch */
+document.querySelectorAll('a[href="#contact"]').forEach(anchor => {
+
+  anchor.addEventListener("click", () => {
+
+    setTimeout(() => {
+
+      const nameInput = document.getElementById("contactName");
+
+      if (nameInput) {
+
+        nameInput.focus();
+
+      }
+
+    }, 500);
+
+  });
+
+});
+
+
+/* =====================================================
    INITIALIZE
 ===================================================== */
 
 renderEverything();
 
 fillEditorProfile();
+

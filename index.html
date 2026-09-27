@@ -60,73 +60,134 @@
 
     <section class="hero" id="home">
 
-      <div class="hero-title title-one">
-        DESIGNER
+      <!-- AMBIENT WATERMARK BACKDROP (SUBTLE DEPTH, ZERO TEXT COLLISION) -->
+      <div class="hero-bg-watermark" aria-hidden="true">
+        <span class="watermark-word">DESIGNER</span>
+        <span class="watermark-word">DEVELOPER</span>
+        <span class="watermark-word">CREATOR</span>
       </div>
 
-      <div class="hero-title title-two">
-        DEVELOPER
-      </div>
+      <!-- MAIN HERO CONTAINER -->
+      <div class="hero-container">
 
-      <div class="hero-title title-three">
-        CREATOR
-      </div>
+        <!-- TEXT CONTENT IN PROPER SEQUENTIAL ORDER -->
+        <div class="hero-content">
 
+          <!-- 1. STATUS & FIELD BADGE -->
+          <div class="hero-badge">
+            <span class="status-indicator">
+              <span class="status-dot"></span>
+              <span class="status-ping"></span>
+            </span>
+            <span class="eyebrow">SOFTWARE ENGINEERING • CREATIVE WEB & GAME DEV</span>
+          </div>
 
-      <!-- PROFILE -->
-      <div class="hero-profile">
+          <!-- 2. PRIMARY IDENTITY HEADLINE -->
+          <h1 class="hero-name" id="heroName">
+            Syeda Manahil
+          </h1>
 
-        <div class="profile-ring ring-one"></div>
-        <div class="profile-ring ring-two"></div>
+          <!-- 3. CRAFT DISCIPLINES (PROPER VISUAL SEQUENCE) -->
+          <div class="hero-roles">
+            <span class="role-pill role-designer">DESIGNER</span>
+            <span class="role-separator">✦</span>
+            <span class="role-pill role-developer">DEVELOPER</span>
+            <span class="role-separator">✦</span>
+            <span class="role-pill role-creator">CREATOR</span>
+          </div>
 
-        <div class="profile-photo" id="profilePhoto">
+          <!-- 4. INTRODUCTION & TAGLINE -->
+          <p class="hero-intro" id="heroIntro">
+            I turn caffeine, creativity & code into interactive experiences.
+          </p>
 
-          <div class="profile-placeholder">
-            SM
+          <!-- 5. CALL TO ACTION & QUICK CHANNELS -->
+          <div class="hero-actions">
+            <a href="#work" class="hero-btn primary-btn">
+              <span>View Projects</span>
+              <span class="btn-arrow">↓</span>
+            </a>
+
+            <a href="#contact" class="hero-btn secondary-btn">
+              <span>Get in Touch</span>
+              <span class="btn-arrow">↗</span>
+            </a>
+
+            <div class="hero-socials">
+              <a
+                id="heroLinkedinLink"
+                href="https://www.linkedin.com/in/syeda-manahyll/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hero-social-link hero-linkedin-btn"
+                title="LinkedIn Profile"
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28Z"/>
+                </svg>
+                <span>LinkedIn ↗</span>
+              </a>
+
+              <a
+                id="heroGithubLink"
+                href="https://github.com/menooprog"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hero-social-link"
+                title="GitHub Profile"
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
+                </svg>
+                <span>GitHub ↗</span>
+              </a>
+            </div>
           </div>
 
         </div>
 
 
-        <div class="floating-sticker sticker-one">
-          ☕ coffee powered
-        </div>
+        <!-- PROFILE SHOWCASE (ALIGNED & HARMONIOUS) -->
+        <div class="hero-profile-container">
 
-        <div class="floating-sticker sticker-two">
-          ✦ vibe coding
-        </div>
+          <div class="profile-frame-wrap">
 
-        <div class="floating-sticker sticker-three">
-          🎮 game dev soon
+            <!-- Ambient Glow -->
+            <div class="profile-glow"></div>
+
+            <!-- Rotating Orbital Rings -->
+            <div class="profile-ring ring-one"></div>
+            <div class="profile-ring ring-two"></div>
+
+            <!-- Profile Photo Element -->
+            <div class="profile-photo" id="profilePhoto">
+              <div class="profile-placeholder">
+                SM
+              </div>
+            </div>
+
+            <!-- Floating Stickers (neatly anchored around frame) -->
+            <div class="floating-sticker sticker-one">
+              ☕ coffee powered
+            </div>
+
+            <div class="floating-sticker sticker-two">
+              🎮 game dev soon
+            </div>
+
+          </div>
+
         </div>
 
       </div>
 
 
-      <!-- HERO INFO -->
-      <div class="hero-info">
-
-        <div>
-
-          <span class="eyebrow">
-            SOFTWARE ENGINEERING • CREATIVE WEB
-          </span>
-
-          <h1 id="heroName">
-            Syeda Manahil
-          </h1>
-
-          <p id="heroIntro">
-            I turn caffeine, creativity & code into interactive experiences.
-          </p>
-
-        </div>
-
-
+      <!-- BOTTOM BAR: SCROLL PROMPT -->
+      <div class="hero-footer">
         <a href="#about" class="scroll-button">
-          SCROLL ↓
+          <span>SCROLL TO EXPLORE</span>
+          <span class="scroll-arrow">↓</span>
         </a>
-
       </div>
 
     </section>
@@ -184,7 +245,6 @@
             <span>GitHub</span>
             <span>UI Design</span>
             <span>AI</span>
-            <span>Vibe Coding</span>
             <span>Game Dev</span>
 
           </div>
@@ -194,10 +254,14 @@
 
             <a
               id="linkedinLink"
-              href="#"
+              href="https://www.linkedin.com/in/syeda-manahyll/"
               target="_blank"
+              rel="noopener noreferrer"
               class="social-link"
             >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px; margin-right:4px;">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28Z"/>
+              </svg>
               LinkedIn ↗
             </a>
 
@@ -205,6 +269,7 @@
               id="githubLink"
               href="https://github.com/menooprog"
               target="_blank"
+              rel="noopener noreferrer"
               class="social-link"
             >
               GitHub ↗
@@ -364,22 +429,90 @@
 
       <div class="contact-card">
 
-        <span class="eyebrow">
-          HAVE AN IDEA?
-        </span>
+        <div class="contact-card-info">
 
-        <h2>
-          LET'S MAKE<br>
-          <em>SOMETHING COOL.</em>
-        </h2>
+          <span class="eyebrow contact-eyebrow">
+            GET IN TOUCH
+          </span>
 
-        <a
-          id="emailLink"
-          href="mailto:your@email.com"
-          class="contact-button"
-        >
-          Get in touch ↗
-        </a>
+          <h2>
+            LET'S MAKE<br>
+            <em>SOMETHING COOL.</em>
+          </h2>
+
+          <p class="contact-subtitle">
+            Have a project in mind, a game dev or web collaboration, or an opportunity? Send me a message below!
+          </p>
+
+          <div class="contact-direct-pills">
+
+            <a
+              id="contactLinkedinLink"
+              href="https://www.linkedin.com/in/syeda-manahyll/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="direct-pill direct-linkedin-pill"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28Z"/>
+              </svg>
+              <span>Connect on LinkedIn ↗</span>
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <!-- CONTACT FORM (AUTOMATICALLY RECEIVES TO GMAIL) -->
+        <form class="contact-form" id="contactForm">
+
+          <div class="form-title">
+            <span>Direct Message</span>
+            <span class="form-dot"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="contactName">Your Name</label>
+            <input
+              type="text"
+              id="contactName"
+              name="name"
+              placeholder="e.g. Alex Smith"
+              required
+              autocomplete="name"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="contactEmail">Your Email</label>
+            <input
+              type="email"
+              id="contactEmail"
+              name="email"
+              placeholder="e.g. alex@example.com"
+              required
+              autocomplete="email"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="contactMessage">Your Message</label>
+            <textarea
+              id="contactMessage"
+              name="message"
+              placeholder="Hi Manahil, let's build something awesome together..."
+              rows="4"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" id="contactSubmitBtn" class="contact-submit-btn">
+            <span id="submitBtnText">Send Message</span>
+            <span id="submitBtnIcon" class="submit-icon">✦</span>
+          </button>
+
+        </form>
 
       </div>
 
