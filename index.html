@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#17121f">
+
+  <title>Syeda Manahil — Aspiring Game Developer | Software engineering undergrad | Website developer | WordPress | Scratch Game Development | AI Fundamentals</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor"></div>
+  <div class="cursor-dot"></div>
+
+  <!-- BACKGROUND -->
+  <div class="noise"></div>
+  <div class="gradient-orb orb-one"></div>
+  <div class="gradient-orb orb-two"></div>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+
+    <a href="#home" class="logo">
+      SM<span>°</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-buttons">
+
+      <button id="themeButton" class="small-button">
+        ◐
+      </button>
+
+      <button id="openEditor" class="edit-button">
+        ✦ Edit
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- HERO -->
+  <main>
+
+    <section class="hero" id="home">
+
+      <div class="hero-title title-one">
+        DESIGNER
+      </div>
+
+      <div class="hero-title title-two">
+        DEVELOPER
+      </div>
+
+      <div class="hero-title title-three">
+        CREATOR
+      </div>
+
+
+      <!-- PROFILE -->
+      <div class="hero-profile">
+
+        <div class="profile-ring ring-one"></div>
+        <div class="profile-ring ring-two"></div>
+
+        <div class="profile-photo" id="profilePhoto">
+
+          <div class="profile-placeholder">
+            SM
+          </div>
+
+        </div>
+
+
+        <div class="floating-sticker sticker-one">
+          ☕ coffee powered
+        </div>
+
+        <div class="floating-sticker sticker-two">
+          ✦ vibe coding
+        </div>
+
+        <div class="floating-sticker sticker-three">
+          🎮 game dev soon
+        </div>
+
+      </div>
+
+
+      <!-- HERO INFO -->
+      <div class="hero-info">
+
+        <div>
+
+          <span class="eyebrow">
+            SOFTWARE ENGINEERING • CREATIVE WEB
+          </span>
+
+          <h1 id="heroName">
+            Syeda Manahil
+          </h1>
+
+          <p id="heroIntro">
+            I turn caffeine, creativity & code into interactive experiences.
+          </p>
+
+        </div>
+
+
+        <a href="#about" class="scroll-button">
+          SCROLL ↓
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- MARQUEE -->
+    <div class="marquee">
+
+      <div class="marquee-track">
+
+        HTML ✦ CSS ✦ JAVASCRIPT ✦ UI DESIGN ✦ AI ✦ GAME DEV ✦ GITHUB ✦
+        HTML ✦ CSS ✦ JAVASCRIPT ✦ UI DESIGN ✦ AI ✦ GAME DEV ✦ GITHUB ✦
+
+      </div>
+
+    </div>
+
+
+    <!-- ABOUT -->
+    <section class="section about-section" id="about">
+
+      <div class="section-number">
+        01 / ABOUT
+      </div>
+
+      <div class="about-grid">
+
+        <div>
+
+          <span class="about-small">
+            HELLO, I'M
+          </span>
+
+          <h2 class="huge-heading" id="aboutName">
+            SYEDA<br>
+            MANAHIL<span>.</span>
+          </h2>
+
+        </div>
+
+
+        <div class="about-content">
+
+          <p id="aboutText">
+            A software engineering student, web developer and creative person
+            who enjoys building things that feel as good as they look.
+          </p>
+
+
+          <div class="skills" id="skills">
+
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>GitHub</span>
+            <span>UI Design</span>
+            <span>AI</span>
+            <span>Vibe Coding</span>
+            <span>Game Dev</span>
+
+          </div>
+
+
+          <div class="social-links">
+
+            <a
+              id="linkedinLink"
+              href="#"
+              target="_blank"
+              class="social-link"
+            >
+              LinkedIn ↗
+            </a>
+
+            <a
+              id="githubLink"
+              href="https://github.com/menooprog"
+              target="_blank"
+              class="social-link"
+            >
+              GitHub ↗
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- WORK -->
+    <section class="section work-section" id="work">
+
+      <div class="section-header">
+
+        <div>
+
+          <div class="section-number">
+            02 / SELECTED WORK
+          </div>
+
+          <h2>
+            Things I've<br>
+            <em>built.</em>
+          </h2>
+
+        </div>
+
+        <p>
+          Websites, experiments, games and creative projects.
+        </p>
+
+      </div>
+
+
+      <!-- FILTER BUTTONS -->
+      <div class="filters">
+
+        <button class="filter active" data-filter="all">
+          All
+        </button>
+
+        <button class="filter" data-filter="web">
+          Web
+        </button>
+
+        <button class="filter" data-filter="game">
+          Game
+        </button>
+
+        <button class="filter" data-filter="creative">
+          Creative
+        </button>
+
+      </div>
+
+
+      <!-- PROJECTS -->
+      <div class="projects" id="projects"></div>
+
+    </section>
+
+
+    <!-- STATS -->
+    <section class="stats-section">
+
+      <div class="stat">
+
+        <strong id="projectCount">
+          00
+        </strong>
+
+        <span>
+          PROJECTS
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <strong id="certificateCount">
+          00
+        </strong>
+
+        <span>
+          CERTIFICATES
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <strong>
+          01
+        </strong>
+
+        <span>
+          FRONTEND INTERNSHIP
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <strong>
+          ∞
+        </strong>
+
+        <span>
+          IDEAS
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- CERTIFICATES -->
+    <section class="section certificate-section" id="certificates">
+
+      <div class="section-header">
+
+        <div>
+
+          <div class="section-number">
+            03 / CERTIFICATIONS
+          </div>
+
+          <h2>
+            Keep<br>
+            <em>learning.</em>
+          </h2>
+
+        </div>
+
+        <p>
+          Every certificate represents another skill added to the toolbox.
+        </p>
+
+      </div>
+
+
+      <div class="certificates" id="certificatesGrid"></div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+    <section class="section contact-section" id="contact">
+
+      <div class="contact-card">
+
+        <span class="eyebrow">
+          HAVE AN IDEA?
+        </span>
+
+        <h2>
+          LET'S MAKE<br>
+          <em>SOMETHING COOL.</em>
+        </h2>
+
+        <a
+          id="emailLink"
+          href="mailto:your@email.com"
+          class="contact-button"
+        >
+          Get in touch ↗
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <span>
+      © <span id="year"></span> Syeda Manahil
+    </span>
+
+    <span>
+      made with ☕ + code
+    </span>
+
+  </footer>
+
+
+  <!-- EDITOR OVERLAY -->
+  <div class="editor-backdrop" id="editorBackdrop"></div>
+
+
+  <!-- EDITOR -->
+  <aside class="editor" id="editor">
+
+    <div class="editor-header">
+
+      <div>
+
+        <span class="eyebrow">
+          PORTFOLIO EDITOR
+        </span>
+
+        <h2>
+          Make it yours.
+        </h2>
+
+      </div>
+
+      <button id="closeEditor" class="close-editor">
+        ×
+      </button>
+
+    </div>
+
+
+    <p class="editor-description">
+
+      Change your information, add projects, upload pictures,
+      rename certificates and manage your portfolio from your phone.
+
+    </p>
+
+
+    <!-- PROFILE -->
+    <details open>
+
+      <summary>
+        Profile
+      </summary>
+
+      <label>
+        Name
+        <input id="editName" type="text">
+      </label>
+
+
+      <label>
+        Hero introduction
+        <textarea id="editIntro"></textarea>
+      </label>
+
+
+      <label>
+        About me
+        <textarea id="editAbout"></textarea>
+      </label>
+
+
+      <label>
+        LinkedIn
+        <input
+          id="editLinkedin"
+          type="url"
+          placeholder="https://linkedin.com/in/..."
+        >
+      </label>
+
+
+      <label>
+        GitHub
+        <input
+          id="editGithub"
+          type="url"
+          placeholder="https://github.com/menooprog"
+        >
+      </label>
+
+
+      <label>
+        Email
+        <input
+          id="editEmail"
+          type="email"
+          placeholder="you@example.com"
+        >
+      </label>
+
+
+      <label>
+        Profile picture
+
+        <input
+          id="profileUpload"
+          type="file"
+          accept="image/*"
+        >
+
+      </label>
+
+
+      <button
+        id="saveProfile"
+        class="save-button"
+      >
+        Save profile
+      </button>
+
+    </details>
+
+
+    <!-- PROJECTS -->
+    <details open>
+
+      <summary>
+        Projects
+      </summary>
+
+      <div id="projectEditor"></div>
+
+      <button
+        id="addProject"
+        class="add-button"
+      >
+        ＋ Add new project
+      </button>
+
+    </details>
+
+
+    <!-- CERTIFICATES -->
+    <details>
+
+      <summary>
+        Certificates
+      </summary>
+
+      <div id="certificateEditor"></div>
+
+      <button
+        id="addCertificate"
+        class="add-button"
+      >
+        ＋ Add certificate
+      </button>
+
+    </details>
+
+
+    <!-- BACKUP -->
+    <details>
+
+      <summary>
+        Backup
+      </summary>
+
+      <div class="backup-buttons">
+
+        <button id="exportData">
+          Export
+        </button>
+
+        <label class="import-button">
+
+          Import
+
+          <input
+            id="importData"
+            type="file"
+            accept=".json"
+          >
+
+        </label>
+
+      </div>
+
+
+      <button
+        id="resetData"
+        class="danger-button"
+      >
+        Reset everything
+      </button>
+
+    </details>
+
+  </aside>
+
+
+  <!-- TOAST -->
+  <div id="toast" class="toast">
+    Saved ✦
+  </div>
+
+
+  <!-- BACK TO TOP -->
+  <button id="backTop" class="back-top">
+    ↑
+  </button>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
