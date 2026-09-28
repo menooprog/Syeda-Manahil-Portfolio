@@ -263,7 +263,7 @@ const DEFAULT_DATA = {
         "web",
 
       image:
-        "",
+        "decode lap internship certificate.jpeg",
 
       description:
         "Summer Frontend Engineering Internship developing responsive user interfaces, modular components, and collaborative web application code.",
@@ -339,12 +339,23 @@ function loadData() {
 
       }
 
-      // Upgrade certificates if missing newly added images or if fewer than 5
+      // Upgrade certificates if missing newly added images or if fewer than 6
       if (parsed && Array.isArray(parsed.certificates)) {
 
+        const internshipCert = parsed.certificates.find(
+          c => c.name && c.name.toLowerCase().includes("internship")
+        );
+
+        if (internshipCert && (!internshipCert.image || internshipCert.image.trim() === "")) {
+
+          internshipCert.image =
+            "decode lap internship certificate.jpeg";
+
+        }
+
         const needsUpgrade =
-          parsed.certificates.length < 5 ||
-          parsed.certificates.some(c => !c.image && c.name.toLowerCase().includes("coursera"));
+          parsed.certificates.length < 6 ||
+          parsed.certificates.some(c => !c.image);
 
         if (needsUpgrade) {
 
