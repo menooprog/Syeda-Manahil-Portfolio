@@ -55,37 +55,24 @@ const DEFAULT_DATA = {
     {
 
       name:
-        "Caffeinated Tutor",
+        "The 78th Word",
 
       description:
-        "An educational website for learning mathematics in a simple and visual way.",
+        "An atmospheric Dark Academia word & puzzle game featuring gothic parchment aesthetics, cryptic wordplay mechanics, and watchful characters.",
 
       url:
-        "https://menooprog.github.io/Caffeinated-tutor/",
-
-      category:
-        "web",
-
-      image:
-        ""
-
-    },
-
-
-    {
-
-      name:
-        "Coffee Run",
-
-      description:
-        "A coffee-themed game concept where Meno chases iced coffee cups with fun physics.",
-
-      url:
-        "",
+        "https://menooprog.github.io/The-78th-word/",
 
       category:
         "game",
 
+      skills: [
+        "Game Design",
+        "Dark Academia",
+        "HTML5 Canvas",
+        "Interactive Fiction"
+      ],
+
       image:
         ""
 
@@ -95,16 +82,77 @@ const DEFAULT_DATA = {
     {
 
       name:
-        "AI Study Buddy",
+        "Eat and Look Tasty",
 
       description:
-        "A creative AI study project designed around free tools and interactive learning workflows.",
+        "A dual-mode culinary and nutrition web application designed for weight gain and weight loss goals with macro tracking and dynamic meal filtering.",
 
       url:
-        "",
+        "https://menooprog.github.io/Eat-And-Look-Tasty/",
 
       category:
         "web",
+
+      skills: [
+        "Web App",
+        "Nutrition & Macros",
+        "Dynamic UI",
+        "Dual-Mode Theme"
+      ],
+
+      image:
+        ""
+
+    },
+
+
+    {
+
+      name:
+        "Apex Underground",
+
+      description:
+        "A high-octane nocturnal motorsport showcase celebrating midnight street racing, drift tracks, custom machines, and underground speed aesthetics.",
+
+      url:
+        "https://menooprog.github.io/Apex-Underground/",
+
+      category:
+        "creative",
+
+      skills: [
+        "Creative Web",
+        "Motorsport UI",
+        "Visual Design",
+        "Animation"
+      ],
+
+      image:
+        ""
+
+    },
+
+
+    {
+
+      name:
+        "Caffeinated Tutor",
+
+      description:
+        "An interactive educational website built to make mathematical concepts simple, visual, and caffeinated for learners.",
+
+      url:
+        "https://menooprog.github.io/Caffeinated-Tutor/",
+
+      category:
+        "web",
+
+      skills: [
+        "EdTech",
+        "Interactive Math",
+        "Visual Learning",
+        "Responsive Web"
+      ],
 
       image:
         ""
@@ -312,6 +360,12 @@ function loadData() {
           );
 
       }
+      else if (parsed) {
+
+        parsed.skills =
+          JSON.parse(JSON.stringify(DEFAULT_DATA.skills));
+
+      }
 
       if (parsed && parsed.profile) {
 
@@ -369,6 +423,34 @@ function loadData() {
 
         parsed.certificates =
           JSON.parse(JSON.stringify(DEFAULT_DATA.certificates));
+
+      }
+
+      // Upgrade projects to the newly requested projects in sequence
+      if (parsed && Array.isArray(parsed.projects)) {
+
+        const hasThe78th = parsed.projects.some(
+          p => p.name && p.name.toLowerCase().includes("78th")
+        );
+        const hasApex = parsed.projects.some(
+          p => p.name && p.name.toLowerCase().includes("apex")
+        );
+        const hasEat = parsed.projects.some(
+          p => p.name && p.name.toLowerCase().includes("tasty")
+        );
+
+        if (!hasThe78th || !hasApex || !hasEat || parsed.projects.length !== 4) {
+
+          parsed.projects =
+            JSON.parse(JSON.stringify(DEFAULT_DATA.projects));
+
+        }
+
+      }
+      else if (parsed) {
+
+        parsed.projects =
+          JSON.parse(JSON.stringify(DEFAULT_DATA.projects));
 
       }
 
@@ -714,7 +796,7 @@ function renderSkills() {
 
 
 /* =====================================================
-   PROJECTS
+   PROJECTS (LIST VIEW)
 ===================================================== */
 
 function renderProjects() {
@@ -726,77 +808,99 @@ function renderProjects() {
 
     (project, index) => {
 
-      const card =
+      const item =
         document.createElement(
           "article"
         );
 
 
-      card.className =
-        "project reveal";
+      item.className =
+        "project-list-item reveal";
 
 
-      card.dataset.category =
-        project.category ||
-        "web";
+      const category =
+        (project.category || "web").toLowerCase();
+
+      item.dataset.category =
+        category;
 
 
-      card.innerHTML = `
+      const categoryLabel =
+        category === "game"
+          ? "GAME DEV"
+          : category === "creative"
+          ? "CREATIVE"
+          : "WEB APP";
 
-        <div class="project-visual">
 
-          ${
-            project.image
+      const formattedNumber =
+        String(index + 1).padStart(2, "0");
 
-            ?
 
-            `<img
-              src="${project.image}"
-              alt="${escapeHTML(
-                project.name
-              )}"
-            >`
+      const skills =
+        Array.isArray(project.skills) ? project.skills : [];
 
-            :
-
-            `<div class="project-number">
-              ${String(index + 1).padStart(2, "0")}
+      const tagsHtml =
+        skills.length
+          ? `<div class="project-list-tags">
+              ${skills.map(s => `<span class="project-tag">${escapeHTML(s)}</span>`).join("")}
             </div>`
+          : "";
 
-          }
+
+      item.innerHTML = `
+
+        <div class="project-list-meta">
+
+          <span class="project-list-index" aria-label="Project ${formattedNumber}">
+            ${formattedNumber}
+          </span>
+
+          <span class="project-list-badge badge-${escapeHTML(category)}">
+            <span class="badge-dot"></span>
+            ${escapeHTML(categoryLabel)}
+          </span>
 
         </div>
 
 
-        <div class="project-info">
+        <div class="project-list-body">
 
-          <div>
+          <div class="project-list-header">
 
-            <span class="project-category">
+            <h3 class="project-list-title">
 
-              ${escapeHTML(
-                project.category ||
-                "web"
-              ).toUpperCase()}
+              <a
+                href="${escapeHTML(project.url || '#')}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-title-link"
+                title="Open ${escapeHTML(project.name)}"
+              >
+                <span>${escapeHTML(project.name)}</span>
 
-            </span>
+                <svg class="project-title-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
 
-
-            <h3>
-              ${escapeHTML(
-                project.name
-              )}
             </h3>
-
-
-            <p>
-              ${escapeHTML(
-                project.description
-              )}
-            </p>
 
           </div>
 
+
+          <p class="project-list-desc">
+            ${escapeHTML(project.description)}
+          </p>
+
+
+          ${tagsHtml}
+
+        </div>
+
+
+        <div class="project-list-action">
 
           ${
             project.url
@@ -807,9 +911,16 @@ function renderProjects() {
               href="${escapeHTML(project.url)}"
               target="_blank"
               rel="noopener noreferrer"
-              class="project-link"
+              class="project-live-btn"
+              title="Launch ${escapeHTML(project.name)} live demo"
             >
-              View ↗
+              <span>Live Demo</span>
+
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
             </a>`
 
             :
@@ -823,7 +934,15 @@ function renderProjects() {
       `;
 
 
-      projectsContainer.appendChild(card);
+      // Subtle hover audio cue when mouse enters
+      item.addEventListener("mouseenter", () => {
+        if (typeof playAudioFeedback === "function") {
+          playAudioFeedback("hover");
+        }
+      });
+
+
+      projectsContainer.appendChild(item);
 
     }
 
@@ -1156,6 +1275,24 @@ function renderEditorProjects() {
         </label>
 
 
+        <label>
+
+          Skills & Tags (comma separated)
+
+          <input
+            type="text"
+            value="${escapeHTML(
+              (project.skills || []).join(', ')
+            )}"
+            onchange="updateProjectSkills(
+              ${index},
+              this.value
+            )"
+          >
+
+        </label>
+
+
         <label class="upload-label">
 
           Upload project picture
@@ -1415,6 +1552,24 @@ window.updateProject = function(
     value;
 
   saveData("Project updated ✦");
+
+};
+
+
+window.updateProjectSkills = function(
+  index,
+  value
+) {
+
+  if (!data.projects[index]) return;
+
+  data.projects[index].skills =
+    value
+      .split(",")
+      .map(s => s.trim())
+      .filter(Boolean);
+
+  saveData("Project tags updated ✦");
 
 };
 
@@ -1863,7 +2018,7 @@ document.querySelectorAll(
 
         document
           .querySelectorAll(
-            ".project"
+            ".project-list-item, .project"
           )
           .forEach(
             card => {
@@ -1875,7 +2030,7 @@ document.querySelectorAll(
               ) {
 
                 card.style.display =
-                  "block";
+                  "flex";
 
               }
 
@@ -1888,6 +2043,10 @@ document.querySelectorAll(
 
             }
           );
+
+        if (typeof playAudioFeedback === "function") {
+          playAudioFeedback("click");
+        }
 
       }
     );
@@ -2565,7 +2724,7 @@ document.querySelectorAll('a[href="#contact"]').forEach(anchor => {
 let currentCertIndex = 0;
 let isCertZoomed = false;
 
-window.openCertModal = function(index) {
+function openCertModal(index) {
 
   if (!data.certificates || !data.certificates[index]) return;
 
@@ -2665,10 +2824,11 @@ window.openCertModal = function(index) {
 
   playAudioFeedback("open");
 
-};
+}
+window.openCertModal = openCertModal;
 
 
-window.closeCertModal = function() {
+function closeCertModal() {
 
   const modalBackdrop = document.getElementById("certModalBackdrop");
 
@@ -2691,10 +2851,11 @@ window.closeCertModal = function() {
 
   playAudioFeedback("close");
 
-};
+}
+window.closeCertModal = closeCertModal;
 
 
-window.navigateCert = function(direction) {
+function navigateCert(direction) {
 
   if (!data.certificates || data.certificates.length === 0) return;
 
@@ -2713,7 +2874,8 @@ window.navigateCert = function(direction) {
 
   openCertModal(newIndex);
 
-};
+}
+window.navigateCert = navigateCert;
 
 
 const certModalVisualEl = document.getElementById("certModalVisual");
