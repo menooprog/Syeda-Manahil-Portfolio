@@ -29,7 +29,7 @@ const DEFAULT_DATA = {
     email:
       "syedamanahil06@gmail.com",
 
-    image: ""
+    image: "manahil profil pic.jpeg"
 
   },
 
@@ -42,7 +42,10 @@ const DEFAULT_DATA = {
     "GitHub",
     "UI Design",
     "AI",
-    "Game Dev"
+    "Game Dev",
+    "WordPress",
+    "Scratch",
+    "Unreal Engine Basics"
 
   ],
 
@@ -75,7 +78,7 @@ const DEFAULT_DATA = {
         "Coffee Run",
 
       description:
-        "A coffee-themed game concept where Meno chases iced coffee cups.",
+        "A coffee-themed game concept where Meno chases iced coffee cups with fun physics.",
 
       url:
         "",
@@ -95,7 +98,7 @@ const DEFAULT_DATA = {
         "AI Study Buddy",
 
       description:
-        "A creative AI study project designed around free tools and interactive learning.",
+        "A creative AI study project designed around free tools and interactive learning workflows.",
 
       url:
         "",
@@ -116,13 +119,53 @@ const DEFAULT_DATA = {
     {
 
       name:
-        "Frontend Development Internship",
+        "Introduction to Generative AI",
 
-      description:
-        "Decode Labs — Summer Internship",
+      issuer:
+        "Google Cloud • Coursera",
+
+      category:
+        "ai",
 
       image:
-        ""
+        "intro to gen AI by google coursera certificate.jpeg",
+
+      description:
+        "Authorized by Google Cloud via Coursera. Explores foundational generative AI principles, Large Language Models, deep learning architectures, and responsible AI implementation.",
+
+      skills: [
+        "Generative AI",
+        "Google Cloud",
+        "Deep Learning",
+        "Prompt Engineering"
+      ]
+
+    },
+
+
+    {
+
+      name:
+        "Introduction to Large Language Models (LLMs)",
+
+      issuer:
+        "Google Cloud • Coursera",
+
+      category:
+        "ai",
+
+      image:
+        "into to llm by google coursera certificate.jpeg",
+
+      description:
+        "Authorized by Google Cloud via Coursera. In-depth study of Large Language Model (LLM) architectures, prompt tuning, generative application workflows, and cloud AI infrastructure.",
+
+      skills: [
+        "LLMs",
+        "Google Cloud",
+        "NLP",
+        "Cloud AI"
+      ]
 
     },
 
@@ -132,11 +175,24 @@ const DEFAULT_DATA = {
       name:
         "Game Development: HTML to Unreal Engine Mastery",
 
-      description:
-        "Coursera certificate",
+      issuer:
+        "Coursera",
+
+      category:
+        "game",
 
       image:
-        ""
+        "game dev htm to unreal enginer mastery cousera certificate.jpeg",
+
+      description:
+        "Comprehensive game development pipeline bridging web-based game mechanics (HTML5 Canvas & JS) to 3D game architectures, physics, and gameplay workflows in Unreal Engine.",
+
+      skills: [
+        "Game Development",
+        "Unreal Engine",
+        "HTML5 Canvas",
+        "Gameplay Scripting"
+      ]
 
     },
 
@@ -144,13 +200,80 @@ const DEFAULT_DATA = {
     {
 
       name:
-        "Introduction to Generative AI",
+        "Basic Game Development with Levels Using Scratch",
 
-      description:
-        "Coursera certificate",
+      issuer:
+        "Coursera Project Network",
+
+      category:
+        "game",
 
       image:
-        ""
+        "basic game dev with levels using scratch certificate.jpeg",
+
+      description:
+        "Interactive mechanics, multi-level progression design, collision triggers, sprite animation, and event-driven architecture built using Scratch.",
+
+      skills: [
+        "Scratch",
+        "Game Design",
+        "Level Architecture",
+        "Logic & Physics"
+      ]
+
+    },
+
+
+    {
+
+      name:
+        "Create a Website Using WordPress: Free Hosting & Sub-domain",
+
+      issuer:
+        "Coursera Project Network",
+
+      category:
+        "web",
+
+      image:
+        "wordpress certificate by coursera.jpeg",
+
+      description:
+        "End-to-end CMS setup, themes, responsive layouts, plugins, SEO essentials, and web publishing workflows on WordPress.",
+
+      skills: [
+        "WordPress",
+        "CMS",
+        "Web Design",
+        "SEO & Publishing"
+      ]
+
+    },
+
+
+    {
+
+      name:
+        "Frontend Development Internship",
+
+      issuer:
+        "Decode Labs",
+
+      category:
+        "web",
+
+      image:
+        "",
+
+      description:
+        "Summer Frontend Engineering Internship developing responsive user interfaces, modular components, and collaborative web application code.",
+
+      skills: [
+        "Frontend Engineering",
+        "UI/UX",
+        "JavaScript",
+        "Team Collaboration"
+      ]
 
     }
 
@@ -206,6 +329,36 @@ function loadData() {
 
         }
 
+        // Migrate profile picture if empty
+        if (!parsed.profile.image || parsed.profile.image.trim() === "") {
+
+          parsed.profile.image =
+            "manahil profil pic.jpeg";
+
+        }
+
+      }
+
+      // Upgrade certificates if missing newly added images or if fewer than 5
+      if (parsed && Array.isArray(parsed.certificates)) {
+
+        const needsUpgrade =
+          parsed.certificates.length < 5 ||
+          parsed.certificates.some(c => !c.image && c.name.toLowerCase().includes("coursera"));
+
+        if (needsUpgrade) {
+
+          parsed.certificates =
+            JSON.parse(JSON.stringify(DEFAULT_DATA.certificates));
+
+        }
+
+      }
+      else if (parsed) {
+
+        parsed.certificates =
+          JSON.parse(JSON.stringify(DEFAULT_DATA.certificates));
+
       }
 
       return parsed;
@@ -217,7 +370,8 @@ function loadData() {
   catch (error) {
 
     console.log(
-      "Could not load saved data."
+      "Could not load saved data.",
+      error
     );
 
   }
@@ -371,24 +525,64 @@ function renderProfile() {
       "aboutName"
     );
 
+  if (aboutName) {
 
-  const nameParts =
-    escapeHTML(
-      data.profile.name
-    )
-    .toUpperCase()
-    .split(" ");
+    const nameParts =
+      escapeHTML(
+        data.profile.name
+      )
+      .toUpperCase()
+      .split(" ");
+
+    aboutName.innerHTML =
+      nameParts.join("<br>") +
+      "<span>.</span>";
+
+  }
 
 
-  aboutName.innerHTML =
-    nameParts.join("<br>") +
-    "<span>.</span>";
+  const aboutText =
+    document.getElementById(
+      "aboutText"
+    );
+
+  if (aboutText) {
+
+    aboutText.textContent =
+      data.profile.about;
+
+  }
 
 
-  document.getElementById(
-    "aboutText"
-  ).textContent =
-    data.profile.about;
+  const profileImgSrc =
+    data.profile.image ||
+    "manahil profil pic.jpeg";
+
+
+  const heroProfileImg =
+    document.getElementById(
+      "heroProfileImg"
+    );
+
+  if (heroProfileImg) {
+
+    heroProfileImg.src =
+      profileImgSrc;
+
+  }
+
+
+  const aboutAvatarImg =
+    document.getElementById(
+      "aboutAvatarImg"
+    );
+
+  if (aboutAvatarImg) {
+
+    aboutAvatarImg.src =
+      profileImgSrc;
+
+  }
 
 
   const linkedin =
@@ -396,12 +590,16 @@ function renderProfile() {
       "linkedinLink"
     );
 
-  linkedin.href =
-    data.profile.linkedin ||
-    "https://www.linkedin.com/in/syeda-manahyll/";
+  if (linkedin) {
 
-  linkedin.style.display =
-    "inline-flex";
+    linkedin.href =
+      data.profile.linkedin ||
+      "https://www.linkedin.com/in/syeda-manahyll/";
+
+    linkedin.style.display =
+      "inline-flex";
+
+  }
 
 
   const heroLinkedin =
@@ -440,9 +638,13 @@ function renderProfile() {
       "githubLink"
     );
 
-  github.href =
-    data.profile.github ||
-    "#";
+  if (github) {
+
+    github.href =
+      data.profile.github ||
+      "#";
+
+  }
 
 
   const heroGithub =
@@ -469,35 +671,6 @@ function renderProfile() {
     emailLinkEl.href =
       "mailto:" +
       (data.profile.email || "");
-
-  }
-
-
-  const profile =
-    document.getElementById(
-      "profilePhoto"
-    );
-
-
-  if (data.profile.image) {
-
-    profile.innerHTML =
-
-      `<img
-        class="profile-image"
-        src="${data.profile.image}"
-        alt="Syeda Manahil"
-      >`;
-
-  }
-
-  else {
-
-    profile.innerHTML =
-
-      `<div class="profile-placeholder">
-        SM
-      </div>`;
 
   }
 
@@ -652,76 +825,137 @@ function renderProjects() {
    CERTIFICATES
 ===================================================== */
 
+let activeCertFilter = "all";
+
 function renderCertificates() {
+
+  if (!certificatesContainer) return;
 
   certificatesContainer.innerHTML = "";
 
+  let countAll = data.certificates.length;
+  let countAi = 0;
+  let countGame = 0;
+  let countWeb = 0;
 
-  data.certificates.forEach(
+  data.certificates.forEach(c => {
+    const cat = (c.category || "web").toLowerCase();
+    if (cat === "ai") countAi++;
+    else if (cat === "game") countGame++;
+    else if (cat === "web") countWeb++;
+  });
 
-    certificate => {
+  const countAllEl = document.getElementById("certCountAll");
+  if (countAllEl) countAllEl.textContent = countAll;
 
-      const card =
-        document.createElement(
-          "article"
-        );
+  const countAiEl = document.getElementById("certCountAi");
+  if (countAiEl) countAiEl.textContent = countAi;
 
+  const countGameEl = document.getElementById("certCountGame");
+  if (countGameEl) countGameEl.textContent = countGame;
 
-      card.className =
-        "certificate reveal";
-
-
-      card.innerHTML = `
-
-        <div class="certificate-image">
-
-          ${
-            certificate.image
-
-            ?
-
-            `<img
-              src="${certificate.image}"
-              alt="${escapeHTML(
-                certificate.name
-              )}"
-            >`
-
-            :
-
-            `<div class="certificate-placeholder">
-              ✦
-            </div>`
-
-          }
-
-        </div>
+  const countWebEl = document.getElementById("certCountWeb");
+  if (countWebEl) countWebEl.textContent = countWeb;
 
 
-        <div class="certificate-info">
+  data.certificates.forEach((certificate, index) => {
 
-          <h3>
-            ${escapeHTML(
-              certificate.name
-            )}
-          </h3>
+    const category = (certificate.category || "web").toLowerCase();
 
-          <p>
-            ${escapeHTML(
-              certificate.description
-            )}
-          </p>
+    const card = document.createElement("article");
+    card.className = "certificate reveal";
+    card.dataset.category = category;
 
-        </div>
-
-      `;
-
-
-      certificatesContainer.appendChild(card);
-
+    if (activeCertFilter !== "all" && category !== activeCertFilter) {
+      card.style.display = "none";
     }
 
-  );
+    const categoryLabel =
+      category === "ai"
+        ? "AI & Machine Learning"
+        : category === "game"
+        ? "Game Development"
+        : "Web & CMS";
+
+    const issuer = escapeHTML(certificate.issuer || "Coursera");
+    const skillsList = Array.isArray(certificate.skills)
+      ? certificate.skills
+      : [];
+
+    const visualHTML = certificate.image
+      ? `
+        <div class="certificate-media" onclick="openCertModal(${index})" title="Click to inspect credential">
+          <div class="certificate-backdrop-blur" style="background-image: url('${escapeHTML(certificate.image)}')"></div>
+          <div class="certificate-img-container">
+            <img
+              src="${escapeHTML(certificate.image)}"
+              alt="${escapeHTML(certificate.name)}"
+              loading="lazy"
+              decoding="async"
+            >
+          </div>
+          <div class="certificate-overlay">
+            <span class="cert-zoom-btn">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              Inspect Credential
+            </span>
+          </div>
+          <span class="cert-issuer-badge">${issuer}</span>
+        </div>
+      `
+      : `
+        <div class="certificate-media cert-media-badge" onclick="openCertModal(${index})" title="Click to inspect credential">
+          <div class="cert-badge-visual">
+            <span class="cert-badge-emblem">✦</span>
+            <span class="cert-badge-role">${escapeHTML(certificate.name)}</span>
+            <span class="cert-badge-org">${issuer}</span>
+          </div>
+          <div class="certificate-overlay">
+            <span class="cert-zoom-btn">Inspect Details</span>
+          </div>
+          <span class="cert-issuer-badge">${issuer}</span>
+        </div>
+      `;
+
+    card.innerHTML = `
+      ${visualHTML}
+
+      <div class="certificate-info">
+        <span class="cert-category-tag">${categoryLabel}</span>
+
+        <h3>
+          ${escapeHTML(certificate.name)}
+        </h3>
+
+        <p>
+          ${escapeHTML(certificate.description)}
+        </p>
+
+        ${
+          skillsList.length > 0
+            ? `
+              <div class="cert-skills-list">
+                ${skillsList.map(s => `<span>${escapeHTML(s)}</span>`).join("")}
+              </div>
+            `
+            : ""
+        }
+
+        <div class="cert-card-footer">
+          <button class="cert-view-btn" onclick="openCertModal(${index})">
+            <span>View Certificate</span> ↗
+          </button>
+          <span class="cert-status-dot" title="Verified by ${issuer}">● Verified</span>
+        </div>
+      </div>
+    `;
+
+    certificatesContainer.appendChild(card);
+
+  });
 
 }
 
@@ -1019,6 +1253,46 @@ function renderEditorCertificates() {
 
         <label>
 
+          Issuer (e.g. Google Cloud, Coursera, Decode Labs)
+
+          <input
+            type="text"
+            value="${escapeHTML(
+              certificate.issuer || ''
+            )}"
+            onchange="updateCertificate(
+              ${index},
+              'issuer',
+              this.value
+            )"
+          >
+
+        </label>
+
+
+        <label>
+
+          Category
+
+          <select
+            onchange="updateCertificate(
+              ${index},
+              'category',
+              this.value
+            )"
+          >
+
+            <option value="ai" ${certificate.category === "ai" ? "selected" : ""}>AI & Machine Learning</option>
+            <option value="game" ${certificate.category === "game" ? "selected" : ""}>Game Development</option>
+            <option value="web" ${certificate.category === "web" ? "selected" : ""}>Web & WordPress</option>
+
+          </select>
+
+        </label>
+
+
+        <label>
+
           Description
 
           <textarea
@@ -1030,6 +1304,24 @@ function renderEditorCertificates() {
           >${escapeHTML(
             certificate.description
           )}</textarea>
+
+        </label>
+
+
+        <label>
+
+          Skills & Competencies (comma separated)
+
+          <input
+            type="text"
+            value="${escapeHTML(
+              (certificate.skills || []).join(', ')
+            )}"
+            onchange="updateCertificateSkills(
+              ${index},
+              this.value
+            )"
+          >
 
         </label>
 
@@ -1055,12 +1347,15 @@ function renderEditorCertificates() {
 
           ?
 
-          `<button
-            class="remove-button"
-            onclick="removeCertificateImage(${index})"
-          >
-            Remove picture
-          </button>`
+          `<div style="display:flex; align-items:center; gap:10px; margin: 6px 0;">
+            <img src="${escapeHTML(certificate.image)}" style="width: 50px; height: 38px; object-fit: contain; border-radius: 4px; border: 1px solid rgba(255,255,255,.2);">
+            <button
+              class="remove-button"
+              onclick="removeCertificateImage(${index})"
+            >
+              Remove picture
+            </button>
+          </div>`
 
           :
 
@@ -1078,6 +1373,21 @@ function renderEditorCertificates() {
   );
 
 }
+
+
+window.updateCertificateSkills = function(index, value) {
+
+  if (!data.certificates[index]) return;
+
+  data.certificates[index].skills =
+    value
+      .split(",")
+      .map(s => s.trim())
+      .filter(Boolean);
+
+  saveData("Certificate skills updated ✦");
+
+};
 
 
 /* =====================================================
@@ -1641,7 +1951,6 @@ function setupProjectTilt() {
 
   }
 
-
   document
     .querySelectorAll(
       ".project"
@@ -1649,60 +1958,39 @@ function setupProjectTilt() {
     .forEach(
       card => {
 
+        let cardRaf = null;
+
         card.addEventListener(
           "mousemove",
           event => {
 
-            const rect =
-              card.getBoundingClientRect();
+            if (cardRaf) cancelAnimationFrame(cardRaf);
 
+            cardRaf = requestAnimationFrame(() => {
 
-            const x =
-              event.clientX -
-              rect.left;
+              const rect = card.getBoundingClientRect();
+              const x = event.clientX - rect.left;
+              const y = event.clientY - rect.top;
+              const centerX = rect.width / 2;
+              const centerY = rect.height / 2;
 
+              const rotateX = ((y - centerY) / centerY) * -4;
+              const rotateY = ((x - centerX) / centerX) * 4;
 
-            const y =
-              event.clientY -
-              rect.top;
+              card.style.transform =
+                `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
 
-
-            const centerX =
-              rect.width / 2;
-
-
-            const centerY =
-              rect.height / 2;
-
-
-            const rotateX =
-              ((y - centerY) /
-                centerY) *
-              -3;
-
-
-            const rotateY =
-              ((x - centerX) /
-                centerX) *
-              3;
-
-
-            card.style.transform =
-              `perspective(1000px)
-               rotateX(${rotateX}deg)
-               rotateY(${rotateY}deg)
-               translateY(-6px)`;
+            });
 
           }
         );
-
 
         card.addEventListener(
           "mouseleave",
           () => {
 
-            card.style.transform =
-              "";
+            if (cardRaf) cancelAnimationFrame(cardRaf);
+            card.style.transform = "";
 
           }
         );
@@ -1740,24 +2028,32 @@ document.addEventListener(
 
     }
 
+    mouseX = event.clientX;
+    mouseY = event.clientY;
 
-    cursor.style.left =
-      event.clientX + "px";
+    if (!cursorRaf) {
 
+      cursorRaf = requestAnimationFrame(() => {
 
-    cursor.style.top =
-      event.clientY + "px";
+        cursor.style.transform =
+          `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
 
+        cursorDot.style.transform =
+          `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
 
-    cursorDot.style.left =
-      event.clientX + "px";
+        cursorRaf = null;
 
+      });
 
-    cursorDot.style.top =
-      event.clientY + "px";
+    }
 
-  }
+  },
+  { passive: true }
 );
+
+let cursorRaf = null;
+let mouseX = 0;
+let mouseY = 0;
 
 
 /* =====================================================
@@ -1770,15 +2066,14 @@ document.addEventListener(
 
     if (
       event.target.closest(
-        "a,button"
+        "a, button, .cert-filter, .certificate-media, .profile-photo, .floating-sticker"
       )
     ) {
 
-      cursor.style.width =
-        "55px";
-
-      cursor.style.height =
-        "55px";
+      cursor.style.width = "52px";
+      cursor.style.height = "52px";
+      cursor.style.borderColor = "var(--purple)";
+      cursor.style.backgroundColor = "rgba(197,177,242,.1)";
 
     }
 
@@ -1792,15 +2087,14 @@ document.addEventListener(
 
     if (
       event.target.closest(
-        "a,button"
+        "a, button, .cert-filter, .certificate-media, .profile-photo, .floating-sticker"
       )
     ) {
 
-      cursor.style.width =
-        "35px";
-
-      cursor.style.height =
-        "35px";
+      cursor.style.width = "35px";
+      cursor.style.height = "35px";
+      cursor.style.borderColor = "var(--pink)";
+      cursor.style.backgroundColor = "transparent";
 
     }
 
@@ -2254,10 +2548,668 @@ document.querySelectorAll('a[href="#contact"]').forEach(anchor => {
 
 
 /* =====================================================
+   CERTIFICATE LIGHTBOX MODAL
+===================================================== */
+
+let currentCertIndex = 0;
+let isCertZoomed = false;
+
+window.openCertModal = function(index) {
+
+  if (!data.certificates || !data.certificates[index]) return;
+
+  currentCertIndex = index;
+  isCertZoomed = false;
+
+  const cert = data.certificates[index];
+  const modalBackdrop = document.getElementById("certModalBackdrop");
+  const modalImg = document.getElementById("certModalImg");
+  const modalTitle = document.getElementById("certModalTitle");
+  const modalDesc = document.getElementById("certModalDesc");
+  const modalIssuer = document.getElementById("certModalIssuer");
+  const modalCategory = document.getElementById("certModalCategory");
+  const modalSkills = document.getElementById("certModalSkills");
+  const modalFullLink = document.getElementById("certModalFullLink");
+  const certCounter = document.getElementById("certCounter");
+  const certVisual = document.getElementById("certModalVisual");
+
+  if (certVisual) {
+
+    certVisual.classList.remove("zoom-active");
+
+  }
+
+  if (modalImg) {
+
+    if (cert.image) {
+
+      modalImg.src = cert.image;
+      modalImg.style.display = "block";
+
+      if (modalFullLink) {
+
+        modalFullLink.href = cert.image;
+        modalFullLink.style.display = "inline-flex";
+
+      }
+
+    }
+    else {
+
+      modalImg.style.display = "none";
+
+      if (modalFullLink) {
+
+        modalFullLink.style.display = "none";
+
+      }
+
+    }
+
+  }
+
+  if (modalTitle) modalTitle.textContent = cert.name;
+  if (modalDesc) modalDesc.textContent = cert.description;
+
+  if (modalIssuer) {
+
+    modalIssuer.textContent = cert.issuer || "Coursera";
+
+  }
+
+  if (modalCategory) {
+
+    const cat = (cert.category || "web").toLowerCase();
+    modalCategory.textContent =
+      cat === "ai"
+        ? "AI & ML"
+        : cat === "game"
+        ? "Game Dev"
+        : "Web & CMS";
+
+  }
+
+  if (modalSkills) {
+
+    const skills = Array.isArray(cert.skills) ? cert.skills : [];
+    modalSkills.innerHTML =
+      skills
+        .map(s => `<span class="cert-modal-tag">${escapeHTML(s)}</span>`)
+        .join("");
+
+  }
+
+  if (certCounter) {
+
+    certCounter.textContent = `${index + 1} / ${data.certificates.length}`;
+
+  }
+
+  if (modalBackdrop) {
+
+    modalBackdrop.classList.add("open");
+    document.body.style.overflow = "hidden";
+
+  }
+
+  playAudioFeedback("open");
+
+};
+
+
+window.closeCertModal = function() {
+
+  const modalBackdrop = document.getElementById("certModalBackdrop");
+
+  if (modalBackdrop) {
+
+    modalBackdrop.classList.remove("open");
+
+  }
+
+  const certVisual = document.getElementById("certModalVisual");
+
+  if (certVisual) {
+
+    certVisual.classList.remove("zoom-active");
+
+  }
+
+  isCertZoomed = false;
+  document.body.style.overflow = "";
+
+  playAudioFeedback("close");
+
+};
+
+
+window.navigateCert = function(direction) {
+
+  if (!data.certificates || data.certificates.length === 0) return;
+
+  let newIndex = currentCertIndex + direction;
+
+  if (newIndex < 0) {
+
+    newIndex = data.certificates.length - 1;
+
+  }
+  else if (newIndex >= data.certificates.length) {
+
+    newIndex = 0;
+
+  }
+
+  openCertModal(newIndex);
+
+};
+
+
+const certModalVisualEl = document.getElementById("certModalVisual");
+
+if (certModalVisualEl) {
+
+  certModalVisualEl.addEventListener("click", () => {
+
+    isCertZoomed = !isCertZoomed;
+    certModalVisualEl.classList.toggle("zoom-active", isCertZoomed);
+    playAudioFeedback("click");
+
+  });
+
+}
+
+
+const certModalCloseBtn = document.getElementById("certModalClose");
+
+if (certModalCloseBtn) {
+
+  certModalCloseBtn.addEventListener("click", closeCertModal);
+
+}
+
+
+const certPrevBtn = document.getElementById("certPrevBtn");
+
+if (certPrevBtn) {
+
+  certPrevBtn.addEventListener("click", (e) => {
+
+    e.stopPropagation();
+    navigateCert(-1);
+
+  });
+
+}
+
+
+const certNextBtn = document.getElementById("certNextBtn");
+
+if (certNextBtn) {
+
+  certNextBtn.addEventListener("click", (e) => {
+
+    e.stopPropagation();
+    navigateCert(1);
+
+  });
+
+}
+
+
+const certModalBackdropEl = document.getElementById("certModalBackdrop");
+
+if (certModalBackdropEl) {
+
+  certModalBackdropEl.addEventListener("click", (e) => {
+
+    if (e.target === certModalBackdropEl) {
+
+      closeCertModal();
+
+    }
+
+  });
+
+}
+
+
+document.addEventListener("keydown", (e) => {
+
+  const modal = document.getElementById("certModalBackdrop");
+
+  if (modal && modal.classList.contains("open")) {
+
+    if (e.key === "Escape") {
+
+      closeCertModal();
+
+    }
+    else if (e.key === "ArrowLeft") {
+
+      navigateCert(-1);
+
+    }
+    else if (e.key === "ArrowRight") {
+
+      navigateCert(1);
+
+    }
+
+  }
+
+});
+
+
+/* =====================================================
+   CERTIFICATE CATEGORY FILTERS
+===================================================== */
+
+document.querySelectorAll(".cert-filter").forEach(button => {
+
+  button.addEventListener("click", function() {
+
+    document
+      .querySelectorAll(".cert-filter")
+      .forEach(b => b.classList.remove("active"));
+
+    this.classList.add("active");
+    activeCertFilter = this.dataset.certFilter;
+
+    playAudioFeedback("click");
+
+    document
+      .querySelectorAll("#certificatesGrid .certificate")
+      .forEach(card => {
+
+        const cat = card.dataset.category || "web";
+
+        if (activeCertFilter === "all" || cat === activeCertFilter) {
+
+          card.style.display = "block";
+
+        }
+        else {
+
+          card.style.display = "none";
+
+        }
+
+      });
+
+  });
+
+});
+
+
+/* =====================================================
+   PROFILE PHOTO INTERACTIONS & TILT
+===================================================== */
+
+function setupProfileInteractions() {
+
+  const profilePhotoEl = document.getElementById("profilePhoto");
+
+  if (profilePhotoEl) {
+
+    profilePhotoEl.addEventListener("click", () => {
+
+      playAudioFeedback("pop");
+      showToast("Syeda Manahil ✦ Ready to build & collaborate!");
+      createSparkles(profilePhotoEl);
+
+    });
+
+  }
+
+  const profileWrap = document.getElementById("profileFrameWrap");
+
+  if (!profileWrap || window.innerWidth < 800) return;
+
+  let rafId = null;
+
+  profileWrap.addEventListener("mousemove", (e) => {
+
+    if (rafId) cancelAnimationFrame(rafId);
+
+    rafId = requestAnimationFrame(() => {
+
+      const rect = profileWrap.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -8;
+      const rotateY = ((x - centerX) / centerX) * 8;
+
+      profileWrap.style.transform =
+        `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+
+    });
+
+  });
+
+  profileWrap.addEventListener("mouseleave", () => {
+
+    if (rafId) cancelAnimationFrame(rafId);
+    profileWrap.style.transform = "";
+
+  });
+
+}
+
+
+function createSparkles(target) {
+
+  const emojis = ["✨", "✦", "★", "💖", "☕", "🎮"];
+
+  for (let i = 0; i < 6; i++) {
+
+    const spark = document.createElement("span");
+    spark.className = "sparkle-particle";
+    spark.textContent = emojis[i % emojis.length];
+
+    const angle = (i / 6) * Math.PI * 2;
+    const dist = 50 + Math.random() * 45;
+
+    spark.style.setProperty("--tx", `${Math.cos(angle) * dist}px`);
+    spark.style.setProperty("--ty", `${Math.sin(angle) * dist}px`);
+    spark.style.left = "50%";
+    spark.style.top = "50%";
+
+    target.appendChild(spark);
+
+    setTimeout(() => spark.remove(), 900);
+
+  }
+
+}
+
+
+/* =====================================================
+   AUDIO FEEDBACK (SYNTHESIZED WEB AUDIO API)
+===================================================== */
+
+let soundEnabled = localStorage.getItem("portfolioSound") === "true";
+const soundButton = document.getElementById("soundButton");
+const soundIcon = document.getElementById("soundIcon");
+
+function updateSoundUI() {
+
+  if (soundIcon) {
+
+    soundIcon.textContent = soundEnabled ? "🔊" : "🔇";
+
+  }
+
+}
+
+updateSoundUI();
+
+if (soundButton) {
+
+  soundButton.addEventListener("click", () => {
+
+    soundEnabled = !soundEnabled;
+    localStorage.setItem("portfolioSound", soundEnabled);
+    updateSoundUI();
+
+    if (soundEnabled) {
+
+      playAudioFeedback("pop");
+      showToast("Audio feedback enabled 🔊");
+
+    }
+    else {
+
+      showToast("Audio muted 🔇");
+
+    }
+
+  });
+
+}
+
+
+function playAudioFeedback(type = "click") {
+
+  if (!soundEnabled) return;
+
+  try {
+
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+
+    const audioCtx = new AudioContextClass();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    const now = audioCtx.currentTime;
+
+    if (type === "click") {
+
+      osc.frequency.setValueAtTime(540, now);
+      osc.frequency.exponentialRampToValueAtTime(1080, now + 0.04);
+      gain.gain.setValueAtTime(0.04, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+      osc.start(now);
+      osc.stop(now + 0.04);
+
+    }
+    else if (type === "open") {
+
+      osc.frequency.setValueAtTime(320, now);
+      osc.frequency.exponentialRampToValueAtTime(640, now + 0.1);
+      gain.gain.setValueAtTime(0.05, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+      osc.start(now);
+      osc.stop(now + 0.1);
+
+    }
+    else if (type === "close") {
+
+      osc.frequency.setValueAtTime(600, now);
+      osc.frequency.exponentialRampToValueAtTime(300, now + 0.08);
+      gain.gain.setValueAtTime(0.04, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      osc.start(now);
+      osc.stop(now + 0.08);
+
+    }
+    else if (type === "pop") {
+
+      osc.frequency.setValueAtTime(450, now);
+      osc.frequency.exponentialRampToValueAtTime(900, now + 0.09);
+      gain.gain.setValueAtTime(0.06, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+      osc.start(now);
+      osc.stop(now + 0.09);
+
+    }
+
+  }
+  catch (e) {
+
+    // Web Audio blocked or not supported
+
+  }
+
+}
+
+
+/* =====================================================
+   STATS COUNTER ANIMATION
+===================================================== */
+
+let statsAnimated = false;
+
+function setupStatsCounter() {
+
+  const statsSection = document.querySelector(".stats-section");
+  if (!statsSection) return;
+
+  const observer = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+      if (entry.isIntersecting && !statsAnimated) {
+
+        statsAnimated = true;
+        animateNumber("projectCount", data.projects.length);
+        animateNumber("certificateCount", data.certificates.length);
+
+      }
+
+    });
+
+  }, { threshold: 0.25 });
+
+  observer.observe(statsSection);
+
+}
+
+
+function animateNumber(elementId, targetValue) {
+
+  const el = document.getElementById(elementId);
+  if (!el) return;
+
+  const duration = 1200;
+  const start = 0;
+  const startTime = performance.now();
+
+  function update(currentTime) {
+
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 4);
+    const current = Math.floor(start + (targetValue - start) * ease);
+
+    el.textContent = String(current).padStart(2, "0");
+
+    if (progress < 1) {
+
+      requestAnimationFrame(update);
+
+    }
+    else {
+
+      el.textContent = String(targetValue).padStart(2, "0");
+
+    }
+
+  }
+
+  requestAnimationFrame(update);
+
+}
+
+
+/* =====================================================
+   SCROLLSPY NAVBAR
+===================================================== */
+
+function setupScrollspy() {
+
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  window.addEventListener("scroll", () => {
+
+    let current = "";
+    const scrollPos = window.pageYOffset + 200;
+
+    sections.forEach(section => {
+
+      if (scrollPos >= section.offsetTop) {
+
+        current = section.getAttribute("id");
+
+      }
+
+    });
+
+    navLinks.forEach(link => {
+
+      link.classList.remove("active");
+
+      if (current && link.getAttribute("href") === `#${current}`) {
+
+        link.classList.add("active");
+
+      }
+
+    });
+
+  }, { passive: true });
+
+}
+
+
+/* =====================================================
+   MOBILE NAVIGATION
+===================================================== */
+
+const mobileNavToggle = document.getElementById("mobileNavToggle");
+const navLinksContainer = document.getElementById("navLinks");
+
+if (mobileNavToggle && navLinksContainer) {
+
+  mobileNavToggle.addEventListener("click", () => {
+
+    navLinksContainer.classList.toggle("mobile-open");
+    playAudioFeedback("click");
+
+  });
+
+  document.querySelectorAll(".nav-link").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+      navLinksContainer.classList.remove("mobile-open");
+
+    });
+
+  });
+
+}
+
+
+/* =====================================================
+   SYNC DEFAULT MEDIA BUTTON
+===================================================== */
+
+const syncMediaBtn = document.getElementById("syncDefaultMedia");
+
+if (syncMediaBtn) {
+
+  syncMediaBtn.addEventListener("click", () => {
+
+    data.profile.image = "manahil profil pic.jpeg";
+    data.certificates = JSON.parse(JSON.stringify(DEFAULT_DATA.certificates));
+    saveData("Synced with latest certificates & photos ✦");
+
+  });
+
+}
+
+
+/* =====================================================
    INITIALIZE
 ===================================================== */
 
 renderEverything();
 
 fillEditorProfile();
+
+setupProfileInteractions();
+
+setupStatsCounter();
+
+setupScrollspy();
+
 

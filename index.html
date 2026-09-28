@@ -5,12 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#17121f">
 
-  <title>Syeda Manahil — Aspiring Game Developer | Software engineering undergrad | Website developer | WordPress | Scratch Game Development | AI Fundamentals</title>
+  <title>Syeda Manahil — Software Engineering Undergrad | Creative Web & Game Developer | AI Fundamentals</title>
+  <meta name="description" content="Portfolio of Syeda Manahil — Software engineering student, creative web developer, WordPress developer, Scratch game dev, and AI & LLM enthusiast.">
+  <meta name="author" content="Syeda Manahil">
+  <meta name="keywords" content="Syeda Manahil, Software Engineering, Game Development, Unreal Engine, Web Developer, WordPress, Scratch, Generative AI, Large Language Models">
+
+  <!-- Open Graph / Social Media Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Syeda Manahil — Software Engineering & Creative Developer">
+  <meta property="og:description" content="Turning caffeine, creativity & code into interactive experiences. Explore projects, games, and verified credentials.">
+  <meta property="og:image" content="manahil%20profil%20pic.jpeg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Preload profile image for instant hero rendering without layout shift -->
+  <link rel="preload" as="image" href="manahil%20profil%20pic.jpeg">
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -27,27 +39,35 @@
   <div class="gradient-orb orb-two"></div>
 
   <!-- NAVBAR -->
-  <header class="navbar">
+  <header class="navbar" id="navbar">
 
     <a href="#home" class="logo">
       SM<span>°</span>
     </a>
 
-    <nav class="nav-links">
-      <a href="#about">About</a>
-      <a href="#work">Work</a>
-      <a href="#certificates">Certificates</a>
-      <a href="#contact">Contact</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#work" class="nav-link">Work</a>
+      <a href="#certificates" class="nav-link">Certificates</a>
+      <a href="#contact" class="nav-link">Contact</a>
     </nav>
 
     <div class="nav-buttons">
 
-      <button id="themeButton" class="small-button">
+      <button id="soundButton" class="small-button" title="Toggle audio feedback" aria-label="Toggle audio feedback">
+        <span id="soundIcon">🔇</span>
+      </button>
+
+      <button id="themeButton" class="small-button" title="Toggle dark/light theme" aria-label="Toggle theme">
         ◐
       </button>
 
       <button id="openEditor" class="edit-button">
         ✦ Edit
+      </button>
+
+      <button id="mobileNavToggle" class="mobile-toggle small-button" aria-label="Toggle navigation menu" title="Menu">
+        ☰
       </button>
 
     </div>
@@ -150,7 +170,7 @@
         <!-- PROFILE SHOWCASE (ALIGNED & HARMONIOUS) -->
         <div class="hero-profile-container">
 
-          <div class="profile-frame-wrap">
+          <div class="profile-frame-wrap" id="profileFrameWrap">
 
             <!-- Ambient Glow -->
             <div class="profile-glow"></div>
@@ -160,10 +180,21 @@
             <div class="profile-ring ring-two"></div>
 
             <!-- Profile Photo Element -->
-            <div class="profile-photo" id="profilePhoto">
-              <div class="profile-placeholder">
-                SM
-              </div>
+            <div class="profile-photo" id="profilePhoto" role="button" tabindex="0" title="Syeda Manahil — Click for interactive badge">
+              <img
+                class="profile-image"
+                id="heroProfileImg"
+                src="manahil%20profil%20pic.jpeg"
+                alt="Syeda Manahil — Software Engineering & Creative Developer"
+                fetchpriority="high"
+              >
+              <div class="profile-sheen" aria-hidden="true"></div>
+            </div>
+
+            <!-- Floating Status Badge -->
+            <div class="profile-status-pill">
+              <span class="status-pulse-dot"></span>
+              <span>Open to Roles &amp; Game Dev</span>
             </div>
 
             <!-- Floating Stickers (neatly anchored around frame) -->
@@ -173,6 +204,10 @@
 
             <div class="floating-sticker sticker-two">
               🎮 game dev soon
+            </div>
+
+            <div class="floating-sticker sticker-three">
+              ✨ creating interactive web
             </div>
 
           </div>
@@ -215,7 +250,7 @@
 
       <div class="about-grid">
 
-        <div>
+        <div class="about-lead-col">
 
           <span class="about-small">
             HELLO, I'M
@@ -225,6 +260,17 @@
             SYEDA<br>
             MANAHIL<span>.</span>
           </h2>
+
+          <div class="about-avatar-card">
+            <div class="about-avatar-img-wrap">
+              <img id="aboutAvatarImg" src="manahil%20profil%20pic.jpeg" alt="Syeda Manahil Portrait" loading="lazy">
+            </div>
+            <div class="about-avatar-info">
+              <span class="about-avatar-name">Syeda Manahil</span>
+              <span class="about-avatar-title">Software Engineering Undergrad</span>
+              <span class="about-avatar-badge"><span>●</span> Web &amp; Game Dev Enthusiast</span>
+            </div>
+          </div>
 
         </div>
 
@@ -413,11 +459,35 @@
         </div>
 
         <p>
-          Every certificate represents another skill added to the toolbox.
+          Verified credentials from Google Cloud, Coursera Project Network, and Decode Labs. Click any certificate to inspect full credentials.
         </p>
 
       </div>
 
+      <!-- CERTIFICATE FILTER TABS -->
+      <div class="cert-filters" id="certFilters">
+
+        <button class="cert-filter active" data-cert-filter="all">
+          <span>All</span>
+          <span class="cert-count-pill" id="certCountAll">0</span>
+        </button>
+
+        <button class="cert-filter" data-cert-filter="ai">
+          <span>AI &amp; Machine Learning</span>
+          <span class="cert-count-pill" id="certCountAi">0</span>
+        </button>
+
+        <button class="cert-filter" data-cert-filter="game">
+          <span>Game Development</span>
+          <span class="cert-count-pill" id="certCountGame">0</span>
+        </button>
+
+        <button class="cert-filter" data-cert-filter="web">
+          <span>Web &amp; WordPress</span>
+          <span class="cert-count-pill" id="certCountWeb">0</span>
+        </button>
+
+      </div>
 
       <div class="certificates" id="certificatesGrid"></div>
 
@@ -519,6 +589,58 @@
     </section>
 
   </main>
+
+
+  <!-- CERTIFICATE LIGHTBOX MODAL -->
+  <div class="cert-modal-backdrop" id="certModalBackdrop" aria-hidden="true">
+    <div class="cert-modal" id="certModal" role="dialog" aria-modal="true" aria-labelledby="certModalTitle">
+      <div class="cert-modal-header">
+        <div class="cert-modal-badges">
+          <span class="cert-modal-badge issuer" id="certModalIssuer">Coursera</span>
+          <span class="cert-modal-badge category" id="certModalCategory">AI</span>
+          <span class="cert-modal-badge verified">✦ Verified Credential</span>
+        </div>
+        <button class="cert-modal-close" id="certModalClose" aria-label="Close dialog">✕</button>
+      </div>
+
+      <div class="cert-modal-content">
+        <div class="cert-modal-visual" id="certModalVisual">
+          <img id="certModalImg" src="" alt="Certificate View" class="cert-modal-image">
+          <div class="cert-modal-zoom-hint">
+            <span>🔍 Click image to toggle zoom</span>
+          </div>
+        </div>
+
+        <div class="cert-modal-sidebar">
+          <div>
+            <h3 id="certModalTitle" class="cert-modal-title">Certificate Title</h3>
+            <p id="certModalDesc" class="cert-modal-desc">Certificate Description</p>
+            
+            <div class="cert-modal-skills-box">
+              <span class="cert-modal-skills-title">VERIFIED COMPETENCIES</span>
+              <div class="cert-modal-skills" id="certModalSkills"></div>
+            </div>
+          </div>
+
+          <div class="cert-modal-actions">
+            <a id="certModalFullLink" href="#" target="_blank" rel="noopener noreferrer" class="cert-action-btn primary">
+              <span>View Full High-Res</span> ↗
+            </a>
+            
+            <div class="cert-nav-controls">
+              <button id="certPrevBtn" class="cert-nav-btn" aria-label="Previous Certificate" title="Previous (← key)">
+                ← Prev
+              </button>
+              <span id="certCounter" class="cert-counter-text">1 / 5</span>
+              <button id="certNextBtn" class="cert-nav-btn" aria-label="Next Certificate" title="Next (→ key)">
+                Next →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <!-- FOOTER -->
@@ -719,6 +841,14 @@
         class="danger-button"
       >
         Reset everything
+      </button>
+
+      <button
+        id="syncDefaultMedia"
+        class="save-button"
+        style="margin-top: 10px; background: rgba(197,177,242,.2); border: 1px solid var(--purple); color: var(--text);"
+      >
+        ↻ Sync Latest Pictures & Certificates
       </button>
 
     </details>
